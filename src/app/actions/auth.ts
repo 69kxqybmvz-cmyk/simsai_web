@@ -10,10 +10,26 @@ export async function signup(prevState: any, formData: FormData) {
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
-    const role = formData.get('role') as string || 'STUDENT'; // Hidden input or default
+    const role = formData.get('role') as string || 'STUDENT';
+    const courseType = formData.get('courseType') as string || null;
+    const department = formData.get('department') as string || null;
+    const semester = formData.get('semester') ? parseInt(formData.get('semester') as string) : null;
 
     if (!name || !email || !password) {
         return { error: 'All fields are required' };
+    }
+
+    // Validate student-specific fields
+    if (role === 'STUDENT') {
+        if (!courseType || !department || !semester) {
+            return { error: 'Please select course type, department, and semester' };
+        }
+
+        // Validate semester based on course type
+        const maxSemester = courseType === 'BTECH' ? 8 : 6;
+        if (semester < 1 || semester > maxSemester) {
+            return { error: `Invalid semester for ${courseType}` };
+        }
     }
 
     // Check if user exists
@@ -33,6 +49,11 @@ export async function signup(prevState: any, formData: FormData) {
             email,
             password: hashedPassword,
             role,
+            ...(role === 'STUDENT' && {
+                courseType,
+                department,
+                semester
+            })
         },
     });
 

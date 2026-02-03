@@ -25,7 +25,41 @@ export default async function DashboardPage() {
                 <h2 style={{ fontSize: '2rem', fontWeight: 500, color: 'var(--foreground)', marginBottom: '0.5rem' }}>
                     Student Dashboard
                 </h2>
-                <p style={{ color: '#666', fontSize: '1.25rem' }}>Welcome back, {user.name}</p>
+                <p style={{ color: '#666', fontSize: '1.25rem', marginBottom: '0.5rem' }}>Welcome back, {user.name}</p>
+                {user.courseType && user.department && (
+                    <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1rem' }}>
+                        <span style={{
+                            background: 'linear-gradient(135deg, #0ea5e9, #06b6d4)',
+                            color: '#fff',
+                            padding: '0.5rem 1rem',
+                            borderRadius: '2rem',
+                            fontSize: '0.95rem',
+                            fontWeight: 500
+                        }}>
+                            {user.courseType === 'BTECH' ? 'B.Tech' : 'Polytechnic'}
+                        </span>
+                        <span style={{
+                            background: 'linear-gradient(135deg, #ec4899, #f472b6)',
+                            color: '#fff',
+                            padding: '0.5rem 1rem',
+                            borderRadius: '2rem',
+                            fontSize: '0.95rem',
+                            fontWeight: 500
+                        }}>
+                            {user.department.replace(/_/g, ' ')}
+                        </span>
+                        <span style={{
+                            background: 'linear-gradient(135deg, #8b5cf6, #a78bfa)',
+                            color: '#fff',
+                            padding: '0.5rem 1rem',
+                            borderRadius: '2rem',
+                            fontSize: '0.95rem',
+                            fontWeight: 500
+                        }}>
+                            Semester {user.semester}
+                        </span>
+                    </div>
+                )}
             </header>
 
 
