@@ -13,7 +13,15 @@ export default async function StaffDashboardPage() {
 
     const submissions = await prisma.submission.findMany({
         orderBy: { createdAt: 'desc' },
-        include: {
+        select: {
+            id: true,
+            title: true,
+            description: true,
+            fileUrl: true,
+            fileType: true,
+            status: true,
+            certificateFile: true,
+            createdAt: true,
             student: {
                 select: {
                     name: true,

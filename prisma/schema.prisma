@@ -22,15 +22,16 @@ model User {
 }
 
 model Submission {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  fileUrl     String
-  fileType    String   // IMAGE or VIDEO
-  status      String   @default("PENDING") // PENDING, APPROVED, REJECTED
-  feedback    String?
-  createdAt   DateTime @default(now())
+  id                  String    @id @default(cuid())
+  title               String
+  description         String?
+  fileUrl             String
+  fileType            String    // IMAGE or VIDEO
+  status              String    @default("PENDING") // PENDING, APPROVED, REJECTED
+  feedback            String?
+  certificateFile     String?   // Uploaded certificate PDF filename
+  createdAt           DateTime  @default(now())
   
-  studentId   String
-  student     User     @relation(fields: [studentId], references: [id])
+  studentId           String
+  student             User      @relation(fields: [studentId], references: [id])
 }

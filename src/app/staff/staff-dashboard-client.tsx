@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ReviewActions } from './review-actions';
+import { CertificateUpload } from './certificate-upload';
 
 const DEPARTMENTS = [
     { value: 'COMPUTER_SCIENCE', label: 'Computer Science' },
@@ -20,6 +21,7 @@ interface StaffDashboardClientProps {
         fileUrl: string;
         fileType: string;
         status: string;
+        certificateFile: string | null;
         createdAt: Date;
         student: {
             name: string;
@@ -248,8 +250,16 @@ export function StaffDashboardClient({ submissions }: StaffDashboardClientProps)
                             </div>
                         </div>
 
+
                         {/* Review Actions */}
                         {sub.status === 'PENDING' && <ReviewActions submissionId={sub.id} />}
+
+                        {/* Certificate Upload */}
+                        <CertificateUpload
+                            submissionId={sub.id}
+                            status={sub.status}
+                            certificateFile={sub.certificateFile}
+                        />
                     </div >
                 ))
                 }

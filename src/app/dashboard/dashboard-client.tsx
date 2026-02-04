@@ -15,6 +15,7 @@ interface DashboardContentProps {
             fileUrl: string;
             fileType: string;
             status: string;
+            certificateFile: string | null;
             createdAt: Date;
         }>;
     };
@@ -82,6 +83,37 @@ export function DashboardContent({ user }: DashboardContentProps) {
                                         fileUrl={sub.fileUrl}
                                         onEdit={() => handleEdit({ id: sub.id, title: sub.title, description: sub.description })}
                                     />
+
+                                    {/* Certificate Download */}
+                                    {sub.certificateFile && (
+                                        <div style={{ marginTop: '0.75rem', padding: '0.75rem', background: 'linear-gradient(135deg, #10b981, #059669)', borderRadius: '0.5rem' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <div>
+                                                    <div style={{ fontSize: '0.875rem', color: '#fff', fontWeight: 600, marginBottom: '0.25rem' }}>
+                                                        🎓 Certificate Available
+                                                    </div>
+                                                    <div style={{ fontSize: '0.75rem', color: '#d1fae5' }}>
+                                                        Your certificate is ready to download
+                                                    </div>
+                                                </div>
+                                                <a
+                                                    href={`/uploads/certificates/${sub.certificateFile}`}
+                                                    download
+                                                    className="btn"
+                                                    style={{
+                                                        background: '#fff',
+                                                        color: '#059669',
+                                                        fontSize: '0.875rem',
+                                                        padding: '0.5rem 1rem',
+                                                        fontWeight: 600,
+                                                        textDecoration: 'none'
+                                                    }}
+                                                >
+                                                    📥 Download
+                                                </a>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             ))
                         )}
